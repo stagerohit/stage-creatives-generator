@@ -17,9 +17,9 @@ services:
       - ./backend/.env
     depends_on:
       - mongo
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+    # volumes:
+    #   - ./backend:/app
+    #   - /app/node_modules
 
   frontend:
     build: ./frontend
@@ -30,9 +30,9 @@ services:
       - ./frontend/.env
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+    # volumes:
+    #   - ./frontend:/app
+    #   - /app/node_modules
 
 volumes:
   mongo_data: 

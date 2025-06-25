@@ -1,0 +1,60 @@
+User Stories
+
+- A User can view a list of content (Title, Metadada, Existing Thumbnails, Trailer). This list would come from an external API
+- User can view detail page of the content  (Title, Metadada, Existing Thumbnails) + generated thumbnail + Create Thumbanail CTA oin Top + Copy
+- On DEtails Page : Tabs of Copies / Posters / logo / Branding Copies  with filters of  (Dimantions, Channels)
+- User can create thumbnails with the folowing inputs and outputs
+Inputs {Video, Prompt, Images, Content Script, Content Genre, content Tag, Reuired Sizes} - > Poster with Different Sizes
+- User can create copies with the folowing inputs and outputs
+Inputs {Video, Prompt, Images, Content Script, Content Genre, content Tag, Reuired Sizes} - > Copies for Different Use cases
+- User can create Movie logo image with the folowing inputs and outputs
+Inputs {Video, Prompt, Images, Content Script, Content Genre, content Tag, Reuired Sizes} - > Copies for Different Use cases
+- User can create Creative copies image with the folowing inputs and outputs
+Inputs {Video, Prompt, Images, Content Script, Content Genre, content Tag, Reuired Sizes} - > Copies for Different Use cases
+- Users can Push the Created Poster to google and meta Dashboards
+
+
+Schema
+
+Table Name	Fields & Types	Description / Relationships
+Content	content_id (PK, UUID), title (String), description (Text), metadata (JSON), genre (String), tags (String[]), script (Text), trailer_url (String), created_at (Timestamp)	Core content info: title, metadata, genre, tags, script, trailer link.
+Thumbnail	thumbnail_id (PK, UUID), content_id (FK), image_url (String), is_generated (Boolean), created_at (Timestamp)	Thumbnails for content (manual or AI-generated).
+Poster	poster_id (PK, UUID), content_id (FK), source_type (Enum: 'video', 'image', 'prompt'), source_id (UUID), prompt (Text), poster_url (String), poster_size (String), ai_metadata (JSON), created_at (Timestamp)	Posters generated via AI from video, images, or prompt; tracks source and size.
+VideoUpload	video_id (PK, UUID), content_id (FK), video_url (String), created_at (Timestamp)	Uploaded videos for thumbnail/poster/copy/logo/creative copy generation.
+Screenshot	screenshot_id (PK, UUID), video_id (FK), image_url (String), timestamp (Float), created_at (Timestamp)	Screenshots extracted from videos.
+ImageUpload	image_id (PK, UUID), content_id (FK), image_url (String), created_at (Timestamp)	Images uploaded for poster/copy/logo/creative copy generation.
+Copy	copy_id (PK, UUID), content_id (FK), use_case (Enum: 'ad', 'branding', 'reengagement', 'description', 'logo', 'creative_copy'), prompt (Text), input_sources (JSON), output_text (Text), size (String), channel (String), created_at (Timestamp)	Generated copies for different use cases, with channel/size filtering.
+Logo	logo_id (PK, UUID), content_id (FK), source_type (Enum: 'video', 'image', 'prompt'), source_id (UUID), prompt (Text), logo_url (String), logo_size (String), ai_metadata (JSON), created_at (Timestamp)	Movie logo images generated from various sources and prompts.
+CreativeCopyImage	creative_image_id (PK, UUID), content_id (FK), source_type (Enum: 'video', 'image', 'prompt'), source_id (UUID), prompt (Text), image_url (String), image_size (String), ai_metadata (JSON), created_at (Timestamp)	Creative copy images generated for branding/marketing.
+AdPush	adpush_id (PK, UUID), poster_id (FK), platform (Enum: 'google', 'meta'), status (Enum: 'pending', 'success', 'fail'), response (JSON), pushed_at (Timestamp)	Tracks poster pushes to Google/Meta dashboards.
+
+API Name	Method	Endpoint	Purpose / Description	Inputs	Outputs
+1. List All Content	GET	external_api	Fetches all content entries	filters (optional): genre, tag, search query	List of content with thumbnails & trailers
+2. Get Content Detail	GET	/api/contents/:contentId	Fetches content metadata, thumbnails, trailers, and AI-generated assets	contentId	Full content detail (metadata + AI assets)
+3. List Assets by Type	GET	/api/contents/:contentId/assets	Fetches asset tabs (Copies / Posters / Logos / Branding Creatives)	type: poster, copy, logo, brandingfilters: dimensions, platform	Filtered asset list
+4. Upload Video	POST	/api/upload/video	Uploads video to be used in asset generation	File upload	videoId, file URL
+5. Upload Image(s)	POST	/api/upload/images	Upload stills or brand assets	Array of image files	List of uploaded image URLs
+6. Generate Poster with AI	POST	/api/poster/generate	Creates posters in different sizes using AI from images, video screenshots, metadata	contentId, videoId?, imageIds?, prompt, genre, tags, requiredSizes	Poster asset URLs (by size)
+7. Generate Copies from Script	POST	/api/copy/generate	Generates ad/marketing/reengagement copies using AI from script or metadata	contentId, script, genre, tags, prompt, useCases[], requiredSizes	JSON of generated copy blocks
+8. Generate Logo	POST	/api/logo/generate	Generates stylized logos using AI	contentId, prompt, style, imageRefs, requiredSizes	Logo image URLs
+9. Generate Branding Copies (Visual)	POST	/api/creative-copy/generate	AI-generated visual creatives (static posts with quotes or promos)	Same as above	Visual asset URLs (by size & type)
+10. Push Poster to Google Ads	POST	/api/integrations/google/push	Sends poster to configured Google Ads campaign	posterId, adAccountId, campaignName, targetAudience	Google Ads push status + campaign ID
+11. Push Poster to Meta Ads	POST	/api/integrations/meta/push	Sends poster to Meta Ads account (Facebook/Instagram)	posterId, adAccountId, campaignName, targetAudience	Meta Ads push status + campaign ID
+12. Push to STAGE App	POST	/api/integrations/stage/push	Sends poster/copy/logo to STAGE internal app	posterId or copyId, destinationPage	Push success flag
+13. Save Generation Metadata	POST	/api/generation/log	Tracks how and from what input an asset was generated	type, sourceIds, prompt, size, platform, userId	Success
+14. Auth: Google / Meta Integration	GET/POST	/api/integrations/auth/:platform	OAuth handling for Meta and Google Ads integrations	OAuth flow	Token stored in user profile
+15. Get Poster Sizes (Presets)	GET	/api/poster-sizes	Lists supported dimensions for each platform	Optional: platform	Label + Width/Height
+
+
+
+Module Implementation Plan:
+
+Module 1 (Foundation) - Essential for everything else
+Module 2 (External Content) - Core functionality
+Module 3 (File Upload) - Required for asset generation
+Module 4 (AI Core) - Backbone for all AI features
+Modules 5-7 (Asset Generation) - Core business logic
+Module 8 (Asset Management) - Organization and display
+Module 9 (Platform Integration) - Advanced features
+Module 10 (Frontend Interface) - Complete user experience
+Module 11 (Testing) - Quality assurance
