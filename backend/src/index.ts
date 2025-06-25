@@ -41,12 +41,12 @@ app.get('/api/contents', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://mongo:27017/content_assets';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/content_assets';
 
 mongoose.connect(MONGO_URI)
   .then(() => {
     app.listen(PORT, () => {
-      console.log();
+      console.log(`Server listening on http://localhost:${PORT}`);
     });
   })
   .catch((err) => {

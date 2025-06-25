@@ -32,9 +32,9 @@ export function ContentList() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
+      <div className="flex flex-col gap-4 p-6">
         {[...Array(6)].map((_, i) => (
-          <Skeleton key={i} className="h-64 w-full rounded-xl" />
+          <Skeleton key={i} className="h-20 w-full rounded-xl" />
         ))}
       </div>
     );
@@ -45,25 +45,28 @@ export function ContentList() {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
+    <div className="flex flex-col gap-4 p-6">
       {data.map((item, idx) => (
-        <Card key={idx} className="overflow-hidden shadow-lg hover:shadow-2xl transition-shadow">
+        <div
+          key={idx}
+          className="flex items-center bg-white rounded-xl shadow hover:shadow-md transition-shadow overflow-hidden"
+        >
           {item.thumbnailURL ? (
             <img
               src={item.thumbnailURL}
               alt={item.title}
-              className="w-full h-48 object-cover"
+              className="w-32 h-20 object-cover flex-shrink-0"
             />
           ) : (
-            <div className="w-full h-48 bg-muted flex items-center justify-center text-muted-foreground">
+            <div className="w-32 h-20 bg-muted flex items-center justify-center text-muted-foreground flex-shrink-0">
               No Image
             </div>
           )}
-          <CardContent className="p-4">
+          <div className="p-4 flex flex-col justify-center">
             <div className="text-xs uppercase text-muted-foreground mb-1">{item.contentType}</div>
-            <div className="font-semibold text-lg text-foreground mb-1">{item.title}</div>
-          </CardContent>
-        </Card>
+            <div className="font-semibold text-lg text-foreground">{item.title}</div>
+          </div>
+        </div>
       ))}
     </div>
   );

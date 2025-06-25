@@ -51,6 +51,7 @@ Module Implementation Plan:
 
 Module 1 (Foundation) - Essential for everything else
 Module 2 (External Content) - Core functionality
+Module 2.1 (Content Details) - Fetch and display content detail page
 Module 3 (File Upload) - Required for asset generation
 Module 4 (AI Core) - Backbone for all AI features
 Modules 5-7 (Asset Generation) - Core business logic
@@ -58,3 +59,78 @@ Module 8 (Asset Management) - Organization and display
 Module 9 (Platform Integration) - Advanced features
 Module 10 (Frontend Interface) - Complete user experience
 Module 11 (Testing) - Quality assurance
+
+
+1. API1: For content list
+
+curl 'https://dev-api.stage.in/nest/cms/content/get/movie-detail?slug=nmovv-har-development' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NTMzMzA5NTksImlhdCI6MTc1MDczODk1OSwickV4cCI6MTc1MzMzMDk1OTY3NywicklkIjoiIiwidHlwZSI6ImFjY2VzcyIsInVzZXJJZCI6IjY4MjMwNzhjMGNhMGMyZjc1OWRiMmE4YSJ9.IpthwPqPfKvgJy6Z5cOypUFzCnoYqt36nc_5OL349cw' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: https://feat-multi-promos.d9ape01u24tx0.amplifyapp.com' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: https://feat-multi-promos.d9ape01u24tx0.amplifyapp.com/' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: cross-site' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36' \
+  -H 'dialect: har' \
+  -H 'lang: en' \
+  -H 'os: other' \
+  -H 'platform: web' \
+  -H 'sec-ch-ua: "Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"'
+
+
+2.  API2: For content list
+
+curl 'https://dev-api.stage.in/nest/cms/content/get/show-detail?slug=shaq-cs' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NTMzMzA5NTksImlhdCI6MTc1MDczODk1OSwickV4cCI6MTc1MzMzMDk1OTY3NywicklkIjoiIiwidHlwZSI6ImFjY2VzcyIsInVzZXJJZCI6IjY4MjMwNzhjMGNhMGMyZjc1OWRiMmE4YSJ9.IpthwPqPfKvgJy6Z5cOypUFzCnoYqt36nc_5OL349cw' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: https://feat-multi-promos.d9ape01u24tx0.amplifyapp.com' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: https://feat-multi-promos.d9ape01u24tx0.amplifyapp.com/' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: cross-site' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36' \
+  -H 'dialect: har' \
+  -H 'lang: en' \
+  -H 'os: other' \
+  -H 'platform: web' \
+  -H 'sec-ch-ua: "Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"'
+
+  3.  API3: For content list
+
+  curl 'https://dev-api.stage.in/nest/cms/content/get/movie-detail?slug=nmovv-har-development' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: en-US,en;q=0.9' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NTMzMzA5NTksImlhdCI6MTc1MDczODk1OSwickV4cCI6MTc1MzMzMDk1OTY3NywicklkIjoiIiwidHlwZSI6ImFjY2VzcyIsInVzZXJJZCI6IjY4MjMwNzhjMGNhMGMyZjc1OWRiMmE4YSJ9.IpthwPqPfKvgJy6Z5cOypUFzCnoYqt36nc_5OL349cw' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: https://feat-multi-promos.d9ape01u24tx0.amplifyapp.com' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: https://feat-multi-promos.d9ape01u24tx0.amplifyapp.com/' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: cross-site' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36' \
+  -H 'dialect: har' \
+  -H 'lang: en' \
+  -H 'os: other' \
+  -H 'platform: web' \
+  -H 'sec-ch-ua: "Google Chrome";v="137", "Chromium";v="137", "Not/A)Brand";v="24"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"'
+
